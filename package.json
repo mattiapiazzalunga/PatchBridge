@@ -1,0 +1,86 @@
+{
+  "name": "patchbridge",
+  "version": "0.1.0",
+  "description": "PatchBridge - Apply AI-generated patches safely.",
+  "main": "app/main.cjs",
+  "license": "Unlicense",
+  "author": "PatchBridge contributors",
+  "homepage": "https://mattiapiazzalunga.github.io/PatchBridge/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mattiapiazzalunga/PatchBridge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mattiapiazzalunga/PatchBridge/issues"
+  },
+  "keywords": [
+    "ai",
+    "patch",
+    "diff",
+    "git",
+    "electron",
+    "developer-tools",
+    "local-first",
+    "code-review",
+    "unified-diff"
+  ],
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "test": "node tests/run-tests.cjs",
+    "check": "npm test",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win nsis portable",
+    "build:mac": "electron-builder --mac dmg zip",
+    "build:linux": "electron-builder --linux AppImage deb rpm"
+  },
+  "engines": {
+    "node": ">=22.12.0",
+    "npm": ">=10.0.0"
+  },
+  "build": {
+    "appId": "dev.patchbridge.app",
+    "productName": "PatchBridge",
+    "directories": {
+      "output": "release"
+    },
+    "icon": "logos/logo.png",
+    "files": [
+      "app/**/*",
+      "src/**/*",
+      "assets/**/*",
+      "logos/**/*",
+      "package.json",
+      "README.md",
+      "LICENSE"
+    ],
+    "extraMetadata": {
+      "main": "app/main.cjs"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.developer-tools"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm"
+      ],
+      "category": "Development"
+    }
+  },
+  "devDependencies": {
+    "electron": "^42.0.0",
+    "electron-builder": "^26.9.0"
+  }
+}

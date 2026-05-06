@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">PatchBridge logo</title>
+  <desc id="desc">A clean bridge mark joining patch brackets across a safe review workflow.</desc>
+  <rect x="6" y="6" width="116" height="116" rx="23" fill="#fff"/>
+  <rect x="10.5" y="10.5" width="107" height="107" rx="18.5" fill="none" stroke="#dce3ee" stroke-width="5"/>
+  <path d="M31 79.5C39.5 63 51.25 55 64 55C76.75 55 88.5 63 97 79.5" fill="none" stroke="#334155" stroke-width="7.5" stroke-linecap="round"/>
+  <path d="M34 79.5V94.5M94 79.5V94.5M26 94.5H54.5M73.5 94.5H102" fill="none" stroke="#334155" stroke-width="7.5" stroke-linecap="round"/>
+  <path d="M53.5 46L41 58.5L53.5 71" fill="none" stroke="#188038" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M74.5 46L87 58.5L74.5 71" fill="none" stroke="#1558d6" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M64 40.5V78" fill="none" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" stroke-dasharray="4.5 7.5"/>
+  <path d="M38 105.5H53.5" fill="none" stroke="#188038" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M75.5 105.5H91" fill="none" stroke="#1558d6" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M83.25 97.75V113.25" fill="none" stroke="#1558d6" stroke-width="4.5" stroke-linecap="round"/>
+</svg>

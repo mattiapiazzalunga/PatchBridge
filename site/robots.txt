@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mattiapiazzalunga.github.io/PatchBridge/sitemap.xml

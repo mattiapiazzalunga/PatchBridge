@@ -1,0 +1,14 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">PatchBridge logo</title>
+  <desc id="desc">A clean bridge mark joining patch brackets across a safe review workflow.</desc>
+  <rect x="24" y="24" width="464" height="464" rx="92" fill="#FFFFFF"/>
+  <rect x="42" y="42" width="428" height="428" rx="74" stroke="#DCE3EE" stroke-width="20"/>
+  <path d="M124 318C158 252 205 220 256 220C307 220 354 252 388 318" stroke="#334155" stroke-width="30" stroke-linecap="round"/>
+  <path d="M136 318V378M376 318V378M104 378H218M294 378H408" stroke="#334155" stroke-width="30" stroke-linecap="round"/>
+  <path d="M214 184L164 234L214 284" stroke="#188038" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M298 184L348 234L298 284" stroke="#1558D6" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M256 162V312" stroke="#94A3B8" stroke-width="16" stroke-linecap="round" stroke-dasharray="18 30"/>
+  <path d="M152 422H214" stroke="#188038" stroke-width="18" stroke-linecap="round"/>
+  <path d="M302 422H364" stroke="#1558D6" stroke-width="18" stroke-linecap="round"/>
+  <path d="M333 391V453" stroke="#1558D6" stroke-width="18" stroke-linecap="round"/>
+</svg>

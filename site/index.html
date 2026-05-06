@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PatchBridge - Local-first AI patch review and Git diff safety</title>
+    <meta name="description" content="PatchBridge is a public-domain desktop app for reviewing AI-generated Git patches locally: scan projects, generate prompts, validate unified diffs, approve changes, and apply patches safely." />
+    <meta name="keywords" content="PatchBridge, AI patch review, Git unified diff, git apply, local-first developer tool, AI coding workflow, patch safety, Electron desktop app" />
+    <meta name="author" content="PatchBridge contributors" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://mattiapiazzalunga.github.io/PatchBridge/" />
+    <link rel="icon" href="./assets/patchbridge-logo.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PatchBridge" />
+    <meta property="og:title" content="PatchBridge - Local-first AI patch review" />
+    <meta property="og:description" content="Review AI-generated Git patches locally with prompt generation, unified-diff validation, granular approval, and safe apply workflows." />
+    <meta property="og:url" content="https://mattiapiazzalunga.github.io/PatchBridge/" />
+    <meta property="og:image" content="https://mattiapiazzalunga.github.io/PatchBridge/assets/patchbridge-logo.svg" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="PatchBridge - Local-first AI patch review" />
+    <meta name="twitter:description" content="A public-domain desktop app for validating, previewing, and applying AI-generated Git patches safely." />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "PatchBridge",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Windows, macOS, Linux",
+        "description": "Public-domain local-first desktop app for reviewing AI-generated Git unified diffs, validating patches, approving changes, and applying them safely.",
+        "url": "https://mattiapiazzalunga.github.io/PatchBridge/",
+        "codeRepository": "https://github.com/mattiapiazzalunga/PatchBridge",
+        "license": "https://unlicense.org/",
+        "softwareVersion": "0.1.0",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#">
+        <img src="./assets/patchbridge-logo.svg" alt="PatchBridge" />
+        <span>PatchBridge</span>
+      </a>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#magic">Magic Flow</a>
+        <a href="#install">Install</a>
+        <a href="https://github.com/mattiapiazzalunga/PatchBridge">GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <p class="eyebrow">Public-domain local-first AI patch workflow</p>
+          <h1>PatchBridge</h1>
+          <p class="tagline">Apply AI-generated patches safely.</p>
+          <p class="subtitle">Scan your project, generate AI-ready prompts, validate Git unified diffs, review changes, and apply approved patches without uploading source code.</p>
+          <div class="hero-actions">
+            <a class="primary" href="#install">Get started</a>
+            <a class="secondary" href="https://github.com/mattiapiazzalunga/PatchBridge">View on GitHub</a>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="product-window">
+            <div class="window-bar">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="product-layout">
+              <div class="product-nav">
+                <span class="active"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <div class="product-panel">
+                <div class="product-row">
+                  <b></b>
+                  <i></i>
+                </div>
+                <div class="product-steps">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <div class="diff-preview">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Developer productivity</p>
+          <h2>Built for patch handoff</h2>
+        </div>
+        <div class="feature-grid">
+          <article>
+            <span class="site-icon scanner" aria-hidden="true"></span>
+            <h3>Project scanner</h3>
+            <p>Detect source files, skip common build folders, exclude binary files, and estimate prompt size.</p>
+          </article>
+          <article>
+            <span class="site-icon prompt" aria-hidden="true"></span>
+            <h3>Prompt generator</h3>
+            <p>Create model-targeted prompts that ask for one clean Git unified diff with relative paths.</p>
+          </article>
+          <article>
+            <span class="site-icon shield" aria-hidden="true"></span>
+            <h3>Patch validation</h3>
+            <p>Parse imported diffs, block unsafe paths, run a dry apply check, and show clear logs.</p>
+          </article>
+          <article>
+            <span class="site-icon approve" aria-hidden="true"></span>
+            <h3>Granular approval</h3>
+            <p>Approve full patches, individual files, hunks, or eligible changed lines before applying.</p>
+          </article>
+          <article>
+            <span class="site-icon diff" aria-hidden="true"></span>
+            <h3>Diff viewer</h3>
+            <p>Review unified, side-by-side, and before/after previews for imported patches and Git comparisons.</p>
+          </article>
+          <article>
+            <span class="site-icon local" aria-hidden="true"></span>
+            <h3>Local by design</h3>
+            <p>The desktop app makes no automatic network calls, uploads no source files, and never executes commands from patches.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="magic" class="section band">
+        <div class="section-heading">
+          <p class="eyebrow">Guided workflow</p>
+          <h2>Magic Flow</h2>
+        </div>
+        <div class="flow">
+          <span><i class="site-icon folder" aria-hidden="true"></i>Select folder</span>
+          <span><i class="site-icon scanner" aria-hidden="true"></i>Scan context</span>
+          <span><i class="site-icon prompt" aria-hidden="true"></i>Generate prompt</span>
+          <span><i class="site-icon import" aria-hidden="true"></i>Import patch</span>
+          <span><i class="site-icon shield" aria-hidden="true"></i>Validate</span>
+          <span><i class="site-icon approve" aria-hidden="true"></i>Approve</span>
+          <span><i class="site-icon diff" aria-hidden="true"></i>Apply</span>
+        </div>
+      </section>
+
+      <section id="install" class="section band">
+        <div class="section-heading">
+          <p class="eyebrow">Public domain</p>
+          <h2>Install and build</h2>
+        </div>
+        <div class="install-grid">
+          <article>
+            <h3>Develop</h3>
+            <pre><code>npm install
+npm start</code></pre>
+          </article>
+          <article>
+            <h3>Build</h3>
+            <pre><code>npm run build:win
+npm run build:mac
+npm run build:linux</code></pre>
+          </article>
+          <article>
+            <h3>Requirements</h3>
+            <p>Git 2.30+, Node.js 22+, npm 10+ for development. Packaged apps require Git on PATH.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section collaboration">
+        <h2>Collaborate on safer AI coding workflows</h2>
+        <p>PatchBridge is released into the public domain through the Unlicense and ready for contributors interested in local-first developer tools, diff UX, and practical AI handoff workflows.</p>
+        <div class="hero-actions">
+          <a class="primary" href="https://github.com/mattiapiazzalunga/PatchBridge">Contribute on GitHub</a>
+          <a class="secondary" href="https://github.com/mattiapiazzalunga/PatchBridge/tree/master/docs">Read documentation</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>PatchBridge</span>
+      <span>Public domain via the Unlicense</span>
+    </footer>
+  </body>
+</html>

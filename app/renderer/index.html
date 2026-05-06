@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PatchBridge</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="setupWizard" class="setup hidden" aria-live="polite"></div>
+
+    <div id="appShell" class="app-shell">
+      <aside class="sidebar" aria-label="Primary navigation">
+        <div class="brand">
+          <img src="../../logos/logo.svg" alt="PatchBridge" />
+          <div>
+            <strong>PatchBridge</strong>
+            <span>Patch safety workspace</span>
+          </div>
+        </div>
+        <nav class="nav">
+          <button class="nav-item active" data-view="magic" data-icon="workflow" aria-current="page"><span>Workflow</span></button>
+          <button class="nav-item" data-view="scanner" data-icon="scan"><span>Scan</span></button>
+          <button class="nav-item" data-view="prompt" data-icon="prompt"><span>Prompt</span></button>
+          <button class="nav-item" data-view="patch" data-icon="review"><span>Review</span></button>
+          <button class="nav-item" data-view="diff" data-icon="diff"><span>Diff</span></button>
+          <button class="nav-item" data-view="help" data-icon="help"><span>Help</span></button>
+        </nav>
+        <div class="local-note">
+          <strong>Local only</strong>
+          <span>No files leave this device.</span>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div class="project-status">
+            <span>Project</span>
+            <div class="project-chip" id="projectChip">No project selected</div>
+          </div>
+          <div class="topbar-actions">
+            <button class="secondary" id="selectProjectTop" data-icon="folder">Open project</button>
+            <button class="primary" id="magicTop" data-icon="workflow">Workflow</button>
+          </div>
+        </header>
+
+        <section id="alerts" class="alerts" aria-live="polite"></section>
+
+        <section class="panel active" data-panel="magic">
+          <div class="section-heading">
+            <span class="heading-icon" data-icon="workflow"></span>
+            <div>
+              <p class="eyebrow">Guided workflow</p>
+              <h1>Workflow</h1>
+            </div>
+            <button class="primary" id="magicPrimary" data-icon="play">Start</button>
+          </div>
+          <div class="magic-grid" id="magicSteps"></div>
+        </section>
+
+        <section class="panel" data-panel="scanner">
+          <div class="section-heading">
+            <span class="heading-icon" data-icon="scan"></span>
+            <div>
+              <p class="eyebrow">Project scanner</p>
+              <h1>Context selection</h1>
+            </div>
+            <div class="button-row scanner-actions">
+              <button class="secondary" id="selectProjectScanner" data-icon="folder">Open project</button>
+              <button class="primary" id="scanProject" data-icon="scan">Scan</button>
+            </div>
+          </div>
+          <label class="checkbox-line scanner-option">
+            <input id="includeIgnoredScan" type="checkbox" />
+            <span>Show ignored folders for manual include</span>
+          </label>
+          <div class="scanner-layout">
+            <div class="tree-panel">
+              <div class="panel-toolbar">
+                <strong>Project tree</strong>
+                <span id="selectedContextStats">0 files selected</span>
+              </div>
+              <div id="treeContainer" class="tree empty-state">Select a project folder to begin.</div>
+            </div>
+            <aside class="summary-panel">
+              <h2>Scan summary</h2>
+              <div id="scannerSummary" class="stat-grid"></div>
+              <h2>Ignored by default</h2>
+              <div id="ignoreRules" class="tag-list"></div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="panel" data-panel="prompt">
+          <div class="section-heading">
+            <span class="heading-icon" data-icon="prompt"></span>
+            <div>
+              <p class="eyebrow">AI prompt builder</p>
+              <h1>Generate a patch request</h1>
+            </div>
+            <button class="primary" id="generatePrompt" data-icon="spark">Generate prompt</button>
+          </div>
+          <div class="split-layout">
+            <div class="form-panel">
+              <label for="requestInput">Requested change</label>
+              <textarea id="requestInput" rows="10" placeholder="Describe the code modification you want."></textarea>
+              <label for="targetSelect">Target AI model</label>
+              <select id="targetSelect">
+                <option>ChatGPT</option>
+                <option>Claude</option>
+                <option>Gemini</option>
+                <option>Generic LLM</option>
+              </select>
+              <div class="status-strip" id="promptStats">Select files in the scanner to estimate prompt size.</div>
+            </div>
+            <div class="form-panel wide">
+              <div class="panel-toolbar">
+                <strong>Editable prompt</strong>
+                <button class="secondary" id="copyPrompt" data-icon="copy">Copy</button>
+              </div>
+              <textarea id="promptOutput" rows="24" spellcheck="false"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" data-panel="patch">
+          <div class="section-heading">
+            <span class="heading-icon" data-icon="shield"></span>
+            <div>
+              <p class="eyebrow">Patch import</p>
+              <h1>Validate and approve changes</h1>
+            </div>
+            <div class="button-row patch-actions">
+              <button class="secondary" id="importPatch" data-icon="import">Import</button>
+              <button class="secondary" id="parsePatch" data-icon="parse">Parse</button>
+              <button class="primary" id="validatePatch" data-icon="shield">Validate</button>
+            </div>
+          </div>
+          <div class="patch-layout">
+            <div class="form-panel">
+              <label for="patchInput">Patch text</label>
+              <textarea id="patchInput" rows="18" spellcheck="false" placeholder="Paste a .patch or .diff here."></textarea>
+              <label class="checkbox-line">
+                <input id="backupBranch" type="checkbox" checked />
+                <span>Create backup branch before applying when possible</span>
+              </label>
+              <button class="danger" id="applyPatch" data-icon="check">Apply approved patch</button>
+              <button class="secondary" id="revertPatch" data-icon="revert" disabled>Revert last applied patch</button>
+              <div id="validationLog" class="log-output"></div>
+            </div>
+            <div class="review-panel">
+              <div class="panel-toolbar review-toolbar">
+                <div class="review-toolbar-main">
+                  <strong id="patchSummary">No patch loaded</strong>
+                  <div class="button-row review-actions">
+                    <button class="secondary" id="approveAll" data-icon="check">Approve all</button>
+                    <button class="secondary" id="rejectAll" data-icon="x">Reject all</button>
+                  </div>
+                </div>
+                <div class="segmented review-view-toggle">
+                  <button class="active" data-diff-view="unified" data-icon="unified">Unified</button>
+                  <button data-diff-view="split" data-icon="columns">Side by side</button>
+                  <button data-diff-view="preview" data-icon="preview">Before/after</button>
+                </div>
+              </div>
+              <div id="patchReview" class="diff-view empty-state">Parse a patch to review affected files.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" data-panel="diff">
+          <div class="section-heading">
+            <span class="heading-icon" data-icon="diff"></span>
+            <div>
+              <p class="eyebrow">Git diff viewer</p>
+              <h1>Compare project changes</h1>
+            </div>
+            <button class="primary" id="loadDiff" data-icon="diff">Load diff</button>
+          </div>
+          <div class="diff-controls">
+            <div class="control-field">
+              <label for="diffMode">Compare</label>
+              <select id="diffMode">
+                <option value="worktree">Working tree vs last commit</option>
+                <option value="branch">Working tree vs selected branch</option>
+                <option value="commit">Working tree vs selected commit</option>
+                <option value="importedPatch">Imported patch vs current project</option>
+              </select>
+            </div>
+            <div class="control-field">
+              <label for="diffRef">Branch or commit</label>
+              <input id="diffRef" type="text" placeholder="main, feature/foo, or commit SHA" />
+            </div>
+            <div class="control-field view-field">
+              <span class="control-label">View</span>
+              <div class="segmented">
+                <button class="active" data-worktree-view="unified" data-icon="unified">Unified</button>
+                <button data-worktree-view="split" data-icon="columns">Side by side</button>
+              </div>
+            </div>
+          </div>
+          <div id="diffSummary" class="status-strip">No diff loaded.</div>
+          <div id="diffOutput" class="diff-view empty-state">Load a diff to preview changes.</div>
+        </section>
+
+        <section class="panel" data-panel="help">
+          <div class="section-heading">
+            <span class="heading-icon" data-icon="help"></span>
+            <div>
+              <p class="eyebrow">Help</p>
+              <h1>How PatchBridge works</h1>
+            </div>
+            <button class="secondary" data-icon="external" data-external-url="https://www.mattiapiazzalunga.com/">Creator website</button>
+          </div>
+
+          <div class="help-layout">
+            <section class="help-panel">
+              <h2>Core workflow</h2>
+              <ol class="help-steps">
+                <li><strong>Open a project.</strong><span>Select the local folder you want PatchBridge to inspect and patch.</span></li>
+                <li><strong>Scan context.</strong><span>Choose only the files that the AI model needs to understand the requested change.</span></li>
+                <li><strong>Generate a prompt.</strong><span>Describe the change, choose a target model, then copy the generated patch request.</span></li>
+                <li><strong>Import the patch.</strong><span>Paste or import the `.patch` or `.diff` returned by the AI tool.</span></li>
+                <li><strong>Validate and review.</strong><span>PatchBridge checks structure, path safety, and `git apply --check` before anything is applied.</span></li>
+                <li><strong>Approve and apply.</strong><span>Accept or reject files, hunks, and changed lines, then apply only the approved patch.</span></li>
+              </ol>
+            </section>
+
+            <aside class="help-panel creator-panel">
+              <img src="../../logos/logo.svg" alt="PatchBridge" />
+              <h2>About the creator</h2>
+              <p>PatchBridge is created by Mattia Piazzalunga as a local-first workflow for reviewing AI-generated code patches with more control and less guesswork.</p>
+              <button class="primary" data-icon="external" data-external-url="https://www.mattiapiazzalunga.com/">Visit mattiapiazzalunga.com</button>
+            </aside>
+
+            <section class="help-panel help-wide">
+              <h2>What each area is for</h2>
+              <div class="help-grid">
+                <div data-icon="workflow"><strong>Workflow</strong><span>Guides the whole process from project selection to final diff review.</span></div>
+                <div data-icon="scan"><strong>Scan</strong><span>Builds project context while avoiding build outputs, binary files, and common noisy folders.</span></div>
+                <div data-icon="prompt"><strong>Prompt</strong><span>Creates an AI-ready instruction that asks for a Git unified diff only.</span></div>
+                <div data-icon="review"><strong>Review</strong><span>Parses, validates, previews, filters, applies, and can reverse the last patch from the session.</span></div>
+                <div data-icon="diff"><strong>Diff</strong><span>Shows the current working tree or imported patch against the selected project.</span></div>
+                <div data-icon="shield"><strong>Setup</strong><span>Highlights missing Git, Node.js, or npm requirements before source-launch workflows continue.</span></div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
