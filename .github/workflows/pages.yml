@@ -24,11 +24,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - id: pages-status
+        name: Check GitHub Pages configuration
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          status="$(curl -sS -o /tmp/pages.json -w "%{http_code}" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/pages")"
+          if [ "$status" = "200" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=GitHub Pages is not enabled::Enable Pages in repository settings with GitHub Actions as the source, then re-run this workflow."
+          fi
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
+        if: steps.pages-status.outputs.enabled == 'true'
       - uses: actions/upload-pages-artifact@v3
+        if: steps.pages-status.outputs.enabled == 'true'
         with:
           path: site
       - id: deployment
+        if: steps.pages-status.outputs.enabled == 'true'
         uses: actions/deploy-pages@v4

@@ -10,4 +10,4 @@
 - Review dependency versions and Electron security advisories.
 - Tag release as `vX.Y.Z`.
 - Publish GitHub Release with checksums.
-- Confirm GitHub Pages deployment.
+- Enable GitHub Pages in repository settings with GitHub Actions as the source, then confirm deployment.
