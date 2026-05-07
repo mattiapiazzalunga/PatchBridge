@@ -1,6 +1,6 @@
 # Specification Compliance Review
 
-Review date: May 6, 2026.
+Review date: May 7, 2026.
 
 This checklist maps the original product specification to the current implementation.
 
